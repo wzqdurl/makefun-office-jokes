@@ -16,6 +16,13 @@ JOKE = (
     "and now the whole company is hitting reply-all to agree with me."
 )
 
+# The bounty gate: UTF-8 text of 1 to 199 characters, one line, not only
+# whitespace. Fail loudly instead of shipping an entry the gate would refuse.
+assert JOKE and not JOKE.isspace() and len(JOKE) <= 199, (
+    f"joke violates the 1-199 character gate: {len(JOKE)} characters"
+)
+assert "\n" not in JOKE, "joke must be a single line"
+
 
 def main() -> None:
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
